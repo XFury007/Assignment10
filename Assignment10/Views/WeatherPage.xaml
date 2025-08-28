@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Assignment10.ViewModel"
+             x:Class="Assignment10.Views.WeatherPage">
+
+    <ContentPage.BindingContext>
+        <vm:WeatherViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20" Spacing="20">
+        <!-- City input -->
+        <Entry Placeholder="Enter city" Text="{Binding CityName}" />
+
+        <!-- Fetch button -->
+        <Button Text="Get Weather" Command="{Binding FetchWeatherCommand}" />
+
+        <!-- Loading indicator -->
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+
+        <!-- Display weather if available -->
+        <Label Text="{Binding WeatherData.name}" FontSize="24" FontAttributes="Bold" HorizontalOptions="Center" />
+        <Label Text="{Binding WeatherData.main.temp, StringFormat='Temperature: {0}°C'}" />
+        <Label Text="{Binding WeatherData.weather[0].description, StringFormat='Condition: {0}'}" />
+        <Label Text="{Binding WeatherData.wind.speed, StringFormat='Wind Speed: {0} m/s'}" />
+        <Label Text="{Binding WeatherData.main.humidity, StringFormat='Humidity: {0}%'}" />
+    </StackLayout>
+</ContentPage>
