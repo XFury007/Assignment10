@@ -19,6 +19,14 @@ namespace Assignment10.Services
         {
             _httpClient = new HttpClient();
         }
+        public async Task<Root> GetWeatherByCoordsAsync(double lat, double lon, string apiKey)
+        {
+            string url = $"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={apiKey}&units=metric";
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<Root>(json);
+        }
 
         public async Task<Root> GetWeatherAsync(string cityName, string apiKey)
         {
